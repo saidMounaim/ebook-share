@@ -10,3 +10,16 @@ datasource db {
   url = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
+
+
+model Book {
+  id Int @default(autoincrement()) @unique
+  title String
+  slug String
+  description String
+  image String
+  author String
+  pdfFile String
+
+  createdAt DateTime @default(now())
+}

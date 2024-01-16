@@ -14,7 +14,7 @@ export default async function Home() {
     <main className="max-w-4xl mx-auto my-5">
       <h1 className="text-3xl font-bold ">Latest Books</h1>
 
-      <div className="grid grid-cols-4 mt-6 gap-3">
+      <div className="grid grid-cols-1 mt-6 gap-3 md:grid-cols-4">
         {books.map((book) => (
           <Link key={book.id} href={`/book/${book.slug}`}>
             <BookCard book={book} />

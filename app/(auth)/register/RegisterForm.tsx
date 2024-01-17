@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import LoadingButton from "@/app/components/LoadingButton";
 import {
   Form,
   FormControl,
@@ -13,14 +13,30 @@ import { Input } from "@/components/ui/input";
 import { registerUserSchema, registerUserValues } from "@/lib/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { registerUser } from "./actions";
+import { useToast } from "@/components/ui/use-toast";
 
 const RegisterForm = () => {
+  const { toast } = useToast();
   const form = useForm<registerUserValues>({
     resolver: zodResolver(registerUserSchema),
   });
 
   async function onSubmit(values: registerUserValues) {
-    console.log(values);
+    const { name, email, password } = values;
+
+    try {
+      await registerUser({ name, email, password });
+      toast({
+        description: "Account registered successfully.",
+        className: "bg-green-600 text-white font-semiBold",
+      });
+    } catch (error) {
+      toast({
+        description: "Something went wrong, please try again.",
+        className: "bg-red-600 text-white font-semiBold",
+      });
+    }
   }
 
   return (
@@ -69,7 +85,9 @@ const RegisterForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Login</Button>
+        <LoadingButton type="submit" loading={form.formState.isSubmitting}>
+          Register
+        </LoadingButton>
       </form>
     </Form>
   );

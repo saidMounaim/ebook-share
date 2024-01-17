@@ -3,14 +3,14 @@ import { checkFileType } from "./utils";
 
 const MAX_FILE_SIZE = 5000000;
 
-const addBookSchema = z.object({
+export const addBookSchema = z.object({
   title: z.string().min(1, "required").max(100),
   description: z.string().min(1, "required").max(500),
   author: z.string().min(1, "required").max(100),
   image: z
     .any()
     .refine((file: any) => file?.length !== 0, "File is required")
-    .refine((file) => file.size < MAX_FILE_SIZE, "Max size is 5MB.")
+    .refine((file) => file?.size < MAX_FILE_SIZE, "Max size is 5MB.")
     .refine(
       (file) => checkFileType({ file, types: ["jpg", "jpeg", "png"] }),
       "Only .jpg, .jpeg, .png formats are supported."
@@ -18,7 +18,7 @@ const addBookSchema = z.object({
   pdfFile: z
     .any()
     .refine((file: any) => file?.length !== 0, "File is required")
-    .refine((file) => file.size < MAX_FILE_SIZE, "Max size is 5MB.")
+    .refine((file) => file?.size < MAX_FILE_SIZE, "Max size is 5MB.")
     .refine(
       (file) => checkFileType({ file, types: ["pdf", "docx"] }),
       "Only .pdf, .docx formats are supported."

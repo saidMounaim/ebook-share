@@ -11,6 +11,22 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <Button variant="outline" asChild>
             <Link
+              href="/login"
+              className="bg-slate-100 text-primary font-medium"
+            >
+              Login
+            </Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link
+              href="/register"
+              className="bg-slate-800 text-white font-medium"
+            >
+              Register
+            </Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link
               href="/book/create"
               className="bg-slate-100 text-primary font-medium"
             >

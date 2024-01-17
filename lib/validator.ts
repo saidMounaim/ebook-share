@@ -26,3 +26,10 @@ export const addBookSchema = z.object({
 });
 
 export type addBookValues = z.infer<typeof addBookSchema>;
+
+export const loginUserSchema = z.object({
+  email: z.string().min(1, "required").email(),
+  password: z.string().min(1, "required"),
+});
+
+export type loginUserValues = z.infer<typeof loginUserSchema>;

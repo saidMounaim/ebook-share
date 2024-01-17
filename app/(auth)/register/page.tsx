@@ -1,6 +1,13 @@
+import { getServerSession } from "next-auth";
 import RegisterForm from "./RegisterForm";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/lib/auth";
 
-const RegisterPage = () => {
+const RegisterPage = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (session) redirect("/");
+
   return (
     <main className="max-w-3xl mx-auto">
       <div className="flex flex-col mt-11">

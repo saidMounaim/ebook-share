@@ -10,17 +10,41 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { loginUserSchema, loginUserValues } from "@/lib/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<loginUserValues>({
     resolver: zodResolver(loginUserSchema),
   });
 
   async function onSubmit(values: loginUserValues) {
-    console.log(values);
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
+      if (result?.ok) {
+        toast({
+          className: "bg-green-700 text-md text-white font-medium",
+          title: "User has been logged in successfully",
+        });
+        router.push("/user/profile");
+        router.refresh();
+      }
+    } catch (error) {
+      toast({
+        description: "Something went wrong, please try again.",
+        className: "bg-red-600 text-white font-semiBold",
+      });
+    }
   }
 
   return (

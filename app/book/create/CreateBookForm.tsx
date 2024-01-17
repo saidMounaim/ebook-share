@@ -11,17 +11,34 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
 import { addBookSchema, addBookValues } from "@/lib/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { createBook } from "./actions";
 
 const CreateBookForm = () => {
   const form = useForm<addBookValues>({
     resolver: zodResolver(addBookSchema),
   });
 
-  function onSubmit(values: addBookValues) {
-    console.log(values);
+  async function onSubmit(values: addBookValues) {
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (value) {
+        formData.append(key, value);
+      }
+    });
+
+    try {
+      await createBook(formData);
+    } catch (error) {
+      toast({
+        className: "bg-red text-white font-semiBold",
+        description: "Something went wrong, please try again.",
+      });
+    }
   }
 
   return (

@@ -33,3 +33,11 @@ export const loginUserSchema = z.object({
 });
 
 export type loginUserValues = z.infer<typeof loginUserSchema>;
+
+export const registerUserSchema = z.object({
+  name: z.string().min(1, "required").max(100),
+  email: z.string().min(1, "required").email(),
+  password: z.string().min(1, "required"),
+});
+
+export type registerUserValues = z.infer<typeof registerUserSchema>;

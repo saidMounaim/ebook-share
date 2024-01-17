@@ -10,16 +10,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { loginUserSchema, loginUserValues } from "@/lib/validator";
+import { registerUserSchema, registerUserValues } from "@/lib/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-const LoginForm = () => {
-  const form = useForm<loginUserValues>({
-    resolver: zodResolver(loginUserSchema),
+const RegisterForm = () => {
+  const form = useForm<registerUserValues>({
+    resolver: zodResolver(registerUserSchema),
   });
 
-  async function onSubmit(values: loginUserValues) {
+  async function onSubmit(values: registerUserValues) {
     console.log(values);
   }
 
@@ -30,6 +30,19 @@ const LoginForm = () => {
         className="space-y-5"
         noValidate
       >
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full name</FormLabel>
+              <FormControl>
+                <Input type="text" placeholder="Full name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="email"
@@ -62,4 +75,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

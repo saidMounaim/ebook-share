@@ -32,7 +32,7 @@ const BookDetails = async ({
               Download
             </Link>
           </Button>
-          {session.user.id == userId && (
+          {session?.user?.id == userId && (
             <DeleteBookButton userId={userId} bookId={id} />
           )}
         </div>

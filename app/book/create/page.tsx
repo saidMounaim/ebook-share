@@ -1,7 +1,14 @@
 import React from "react";
 import CreateBookForm from "./CreateBookForm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-const CreateBookPage = () => {
+const CreateBookPage = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) redirect("/login");
+
   return (
     <main className="max-w-3xl mx-auto">
       <div className="flex flex-col mt-11">

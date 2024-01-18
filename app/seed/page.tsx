@@ -51,9 +51,9 @@ const placeholderBooks = [
 export default function SeedDatabase() {
   async function postData() {
     "use server";
-    await prisma.book.createMany({
-      data: placeholderBooks,
-    });
+    // await prisma.book.createMany({
+    //   data: placeholderBooks,
+    // });
   }
 
   return (

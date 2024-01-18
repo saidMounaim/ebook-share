@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import LoadingButton from "@/app/components/LoadingButton";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -80,7 +81,9 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Login</Button>
+        <LoadingButton type="submit" loading={form.formState.isSubmitting}>
+          Login
+        </LoadingButton>
       </form>
     </Form>
   );

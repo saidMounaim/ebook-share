@@ -16,6 +16,7 @@ import { addBookSchema, addBookValues } from "@/lib/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { createBook } from "./actions";
+import LoadingButton from "@/app/components/LoadingButton";
 
 const CreateBookForm = () => {
   const form = useForm<addBookValues>({
@@ -127,7 +128,9 @@ const CreateBookForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Add</Button>
+        <LoadingButton type="submit" loading={form.formState.isSubmitting}>
+          Add
+        </LoadingButton>
       </form>
     </Form>
   );

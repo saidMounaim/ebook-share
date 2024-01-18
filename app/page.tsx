@@ -3,7 +3,7 @@ import prisma from "../lib/prisma";
 import BookCard from "./components/BookCard";
 
 async function getBooks() {
-  const books = await prisma?.book.findMany({});
+  const books = await prisma?.book.findMany({ orderBy: { createdAt: "desc" } });
   return books;
 }
 
